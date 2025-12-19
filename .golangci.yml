@@ -1,0 +1,14 @@
+run:
+  timeout: 3m
+
+linters:
+  enable:
+    - errcheck # cek semua error harus ditangani
+    - unparam # argumen fungsi yg ga kepake warning
+    - staticcheck
+    - revive
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: false # untuk mengaktifkan _ dilarang buat throw error

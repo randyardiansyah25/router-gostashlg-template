@@ -1,0 +1,26 @@
+# ln -s <absolute path> /etc/systemd/system/<service name>.service
+# sudo systemctl daemon-reload
+# sudo systemctl enable <service name>
+# sudo systemctl start <service name>
+# Jika StandardOutput dan StandardError tidak diisi, maka output standard dari service akan diarahkan
+# ke log journalctl (log sistem default ubuntu yang mendukung systemd). Untuk melihat dalam journalctl :
+# journalctl -u <service name>.service
+
+[Unit]
+Description= Transaction Core - Warung Komunitas KMP
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/warungkomunitas/core
+ExecStart=/home/warungkomunitas/core/router-gostashlg-template
+StandardOutput=file:/home/warungkomunitas/core/journal/service.log
+StandardError=file:/home/warungkomunitas/core/journal/service.err
+
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
